@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Security Report</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Mobile App Security Report</h1>
+
+    <div class="summary-box">
+        <h3>Scan Summary</h3>
+
+        <p><strong>Total Issues:</strong> {{ findings|length }}</p>
+        <p><strong>Risk Score:</strong> {{ metadata.risk_score }}</p>
+
+
+        <div class="progress-bar">
+            <div class="progress-fill"
+                style="width: {{ metadata.risk_percent | string }}%;">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="card">
+        <h3>APK Metadata</h3>
+
+        <p><strong>Package:</strong> {{ metadata.package_name }}</p>
+        <p><strong>Version Name:</strong> {{ metadata.version_name }}</p>
+        <p><strong>Version Code:</strong> {{ metadata.version_code }}</p>
+        <p><strong>Min SDK:</strong> {{ metadata.min_sdk }}</p>
+        <p><strong>Target SDK:</strong> {{ metadata.target_sdk }}</p>
+        <p><strong>SHA256:</strong> {{ metadata.sha256 }}</p>
+    </div>
+
+
+    {% for finding in findings %}
+    <div class="card">
+
+        <h3>{{ finding.type }}</h3>
+
+        <span class="badge {{ finding.severity | lower }}">
+            {{ finding.severity }}
+        </span>
+
+        <p><strong>Issue:</strong> {{ finding.issue }}</p>
+        <p><strong>OWASP:</strong> {{ finding.owasp }}</p>
+        <p><strong>Description:</strong> {{ finding.description }}</p>
+        <p><strong>Remediation:</strong> {{ finding.remediation }}</p>
+
+    </div>
+    {% endfor %}
+
+</div>
+
+</body>
+</html>

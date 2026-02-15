@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mobile App Security Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <h1>Mobile App Security Analyzer</h1>
+
+    <div class="card">
+        <form action="/scan" method="post" enctype="multipart/form-data">
+            <input type="file" name="apkfile" required>
+            <br><br>
+            <button type="submit">Scan APK</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

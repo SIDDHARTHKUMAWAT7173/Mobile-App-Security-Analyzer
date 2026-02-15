@@ -1,0 +1,64 @@
+{
+    "apk_name": "DivaApplication.apk",
+    "scan_time": "2026-02-15 10:22:25",
+    "metadata": {
+        "package_name": "jakhar.aseem.diva",
+        "version_name": "1.0",
+        "version_code": "1",
+        "min_sdk": "15",
+        "target_sdk": "23",
+        "sha256": "5cefc51fce9bd760b92ab2340477f4dda84b4ae0c5d04a8c9493e4fe34fab7c5",
+        "risk_score": 12,
+        "risk_percent": 60
+    },
+    "total_issues": 5,
+    "risk_score": 26,
+    "summary": {
+        "Critical": 0,
+        "High": 2,
+        "Medium": 3,
+        "Low": 0
+    },
+    "findings": [
+        {
+            "type": "Manifest Misconfiguration",
+            "issue": "Application is debuggable",
+            "severity": "High",
+            "owasp": "M7 - Insufficient Binary Protections",
+            "description": "Debuggable apps allow attackers to attach debuggers and inspect runtime behavior.",
+            "remediation": "Disable debuggable flag in production builds."
+        },
+        {
+            "type": "Data Exposure Risk",
+            "issue": "Application allows backup",
+            "severity": "Medium",
+            "owasp": "M2 - Insecure Data Storage",
+            "description": "Allowing backups may expose sensitive application data.",
+            "remediation": "Set android:allowBackup to false for sensitive applications."
+        },
+        {
+            "type": "Component Exposure",
+            "issue": "Exported content provider detected without permission: jakhar.aseem.diva.NotesProvider",
+            "severity": "High",
+            "owasp": "M2 - Insecure Data Storage",
+            "description": "Unprotected content providers may expose sensitive application data.",
+            "remediation": "Protect content providers with permissions or disable exported."
+        },
+        {
+            "type": "Permission Risk",
+            "issue": "Sensitive permission requested: android.permission.READ_EXTERNAL_STORAGE",
+            "severity": "Medium",
+            "owasp": "M8 - Security Misconfiguration",
+            "description": "Read external storage",
+            "remediation": "Ensure this permission is strictly required and justified."
+        },
+        {
+            "type": "Permission Risk",
+            "issue": "Sensitive permission requested: android.permission.WRITE_EXTERNAL_STORAGE",
+            "severity": "Medium",
+            "owasp": "M8 - Security Misconfiguration",
+            "description": "Write to external storage",
+            "remediation": "Ensure this permission is strictly required and justified."
+        }
+    ]
+}
