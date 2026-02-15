@@ -11,18 +11,41 @@
     <h1>Mobile App Security Report</h1>
 
     <div class="summary-box">
-        <h3>Scan Summary</h3>
+        <h2>Executive Security Summary</h2>
 
         <p><strong>Total Issues:</strong> {{ findings|length }}</p>
         <p><strong>Risk Score:</strong> {{ metadata.risk_score }}</p>
-
+        <p><strong>Risk Level:</strong> {{ metadata.risk_level }}</p>
 
         <div class="progress-bar">
             <div class="progress-fill"
-                style="width: {{ metadata.risk_percent | string }}%;">
+                style="width: {{ metadata.risk_percent }}%;">
             </div>
         </div>
     </div>
+
+    <div class="dashboard">
+        <div class="card critical-card">
+            <h3>Critical</h3>
+            <p>{{ findings | selectattr("severity", "equalto", "Critical") | list | length }}</p>
+        </div>
+
+        <div class="card high-card">
+            <h3>High</h3>
+            <p>{{ findings | selectattr("severity", "equalto", "High") | list | length }}</p>
+        </div>
+
+        <div class="card medium-card">
+            <h3>Medium</h3>
+            <p>{{ findings | selectattr("severity", "equalto", "Medium") | list | length }}</p>
+        </div>
+
+        <div class="card low-card">
+            <h3>Low</h3>
+            <p>{{ findings | selectattr("severity", "equalto", "Low") | list | length }}</p>
+        </div>
+    </div>
+
 
 
     <div class="card">

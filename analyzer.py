@@ -57,19 +57,37 @@ class APKAnalyzer:
         print("[*] Running secret detection...")
         findings.extend(SecretScanner(self.analysis).scan())
 
+        # -------------------------------
+        # Advanced Risk Scoring Engine
+        # -------------------------------
+
+        severity_weights = {
+            "Critical": 10,
+            "High": 7,
+            "Medium": 4,
+            "Low": 1
+        }
+
         risk_score = 0
+
         for f in findings:
-            if f.get("severity") == "Critical":
-                risk_score += 4
-            elif f.get("severity") == "High":
-                risk_score += 3
-            elif f.get("severity") == "Medium":
-                risk_score += 2
-            elif f.get("severity") == "Low":
-                risk_score += 1
+            severity = f.get("severity")
+            risk_score += severity_weights.get(severity, 0)
+
+        # Risk level classification
+        if risk_score >= 60:
+            risk_level = "Critical"
+        elif risk_score >= 40:
+            risk_level = "High"
+        elif risk_score >= 20:
+            risk_level = "Moderate"
+        else:
+            risk_level = "Low"
 
         self.metadata["risk_score"] = risk_score
-        self.metadata["risk_percent"] = min(risk_score * 5, 100)
+        self.metadata["risk_level"] = risk_level
+        self.metadata["risk_percent"] = min(risk_score, 100)
+
 
         return findings
 
